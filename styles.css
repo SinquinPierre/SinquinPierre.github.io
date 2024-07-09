@@ -1,0 +1,55 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #738678;
+    transition: background-color 0.3s;
+}
+body.dark-mode {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+}
+.profile-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+.section-title {
+    @apply text-2xl font-semibold border-b-2 border-gray-800 pb-2 mb-4;
+}
+.btn {
+    @apply bg-gradient-to-r from-green-400 to-blue-500 text-white py-2 px-4 rounded-lg shadow-md transition-transform transform hover:scale-105;
+}
+.header {
+    background-color: #738678;
+    background-image: linear-gradient(to right, #738678, #5c6d66);
+}
+.skills-item:hover {
+    background-color: #5c6d66;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.typewriter h1 {
+    overflow: hidden;
+    border-right: .15em solid orange;
+    white-space: nowrap;
+    margin: 0 auto;
+    letter-spacing: .15em;
+    animation: typing 3.5s steps(30, end), blink-caret .75s step-end ;
+}
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: orange; }
+}
+.fade-in {
+    animation: fadeIn 1s ease-in-out;
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
