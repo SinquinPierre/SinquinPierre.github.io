@@ -3,44 +3,861 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pierre Sinquin - Bioinformatics</title>
-    <link href="styles.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Pierre Sinquin - Bioinformatics Specialist</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --text-primary: #1a1a1a;
+            --text-secondary: #6c757d;
+            --accent: #2563eb;
+            --accent-hover: #1d4ed8;
+            --border: #e5e7eb;
+            --card-bg: #ffffff;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --accent: #3b82f6;
+            --accent-hover: #60a5fa;
+            --border: #334155;
+            --card-bg: #1e293b;
+            --shadow: rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: sticky;
+            top: 0;
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.9);
+            transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] header {
+            background: rgba(15, 23, 42, 0.9);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--border);
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent);
+            transform: scale(1.05);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 6rem 0;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), #8b5cf6);
+            margin: 0 auto 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent), #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px var(--shadow);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        section:last-child {
+            border-bottom: none;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* Profile Section */
+        .profile-card {
+            background: var(--card-bg);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px var(--shadow);
+            max-width: 900px;
+            margin: 0 auto;
+            border: 1px solid var(--border);
+        }
+
+        .profile-card p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        /* Experience Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 50px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--accent);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            padding-left: 30px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -38px;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 4px solid var(--bg-primary);
+            box-shadow: 0 0 0 4px var(--accent);
+        }
+
+        .timeline-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px var(--shadow);
+            border: 1px solid var(--border);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .timeline-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .timeline-company {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .timeline-date {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .timeline-description {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            box-shadow: 0 5px 15px var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .skill-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .skill-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            background: var(--bg-secondary);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+        }
+
+        /* Interests & Fun Facts */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .info-item {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: start;
+            gap: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .info-item:hover {
+            transform: translateY(-3px);
+        }
+
+        .info-icon {
+            font-size: 2rem;
+        }
+
+        /* Contact */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .contact-item {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            box-shadow: 0 5px 15px var(--shadow);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .contact-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .contact-value {
+            color: var(--text-secondary);
+        }
+
+        .contact-value a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .contact-value a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-secondary);
+            padding: 2rem 0;
+            text-align: center;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .timeline {
+                padding-left: 30px;
+            }
+
+            .timeline-item {
+                padding-left: 20px;
+            }
+
+            .timeline-item::before {
+                left: -28px;
+            }
+
+            .skills-grid,
+            .info-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Loading animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        section {
+            animation: fadeIn 0.6s ease-out;
+        }
+    </style>
 </head>
 <body>
-<header class="header text-white py-6 mb-10 shadow-lg">
-    <div class="container mx-auto text-center">
-        <img src="https://via.placeholder.com/150" alt="Profile Picture" class="profile-img mx-auto">
-        <div class="typewriter">
-            <h1>Pierre Sinquin - Bioinformatics</h1>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">PS</div>
+                <ul class="nav-links">
+                    <li><a href="#profile">Profile</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+                    <span id="theme-icon">🌓</span>
+                </button>
+            </nav>
         </div>
-        <div class="mt-4">
-            <button onclick="scrollToSection('profile')" class="btn mx-2">📜 Profile</button>
-            <button onclick="scrollToSection('experience')" class="btn mx-2">💼 Experience</button>
-            <button onclick="scrollToSection('contact')" class="btn mx-2">📞 Contact</button>
-            <a href="ressources/EN-Resumé.pdf" download="PierreSinquin_Resume" class="btn mx-2">📄 Download Resume</a>
-            <button onclick="toggleDarkMode()" class="btn mx-2">🌓 Toggle Dark Mode</button>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="profile-img">👨‍🔬</div>
+                    <h1>Pierre Sinquin</h1>
+                    <p class="subtitle">Bioinformatics Specialist</p>
+                    <p style="color: var(--text-secondary); max-width: 700px; margin: 0 auto 2rem;">
+                        Passionate about leveraging computational biology to solve complex biological problems. 
+                        Specializing in protein structure prediction, metabolic pathway visualization, and data integration.
+                    </p>
+                    <div class="cta-buttons">
+                        <a href="#contact" class="btn btn-primary">Get in Touch</a>
+                        <a href="ressources/EN-Resumé.pdf" class="btn btn-secondary" download>📄 Download CV</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="profile">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">👨‍🔬 Profile</h2>
+                    <p class="section-subtitle">About Me</p>
+                </div>
+                <div class="profile-card">
+                    <p>
+                        Curious, motivated, and determined, I'm actively seeking employment after my Master's degree in Bioinformatics, 
+                        particularly in research for new technologies of bioinformatics, as well as in sustainable development. 
+                        The issues and problems your team faces resonate with me, and I would be delighted to contribute to them.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">💼 Experience</h2>
+                    <p class="section-subtitle">Professional Journey</p>
+                </div>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-card">
+                            <div class="timeline-header">
+                                <div>
+                                    <div class="timeline-title">Programmer</div>
+                                    <div class="timeline-company">EMBL-EBI, Cambridge</div>
+                                </div>
+                                <div class="timeline-date">Feb-Aug 2024</div>
+                            </div>
+                            <p class="timeline-description">
+                                Intern in the Reactome team. Created a pipeline enhancing Reactome's biological pathway visualizations 
+                                by integrating AlphaFold-predicted protein structures and physical interaction predictions. 
+                                Developed using Nextflow, Neo4j, and Mol*.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-card">
+                            <div class="timeline-header">
+                                <div>
+                                    <div class="timeline-title">Programmer</div>
+                                    <div class="timeline-company">NuMeCan, Rennes</div>
+                                </div>
+                                <div class="timeline-date">May-Aug 2023</div>
+                            </div>
+                            <p class="timeline-description">
+                                Intern in the NuMeCan Mether pole. Set up a web interface for integrating metabolic data from bacteria 
+                                studied in the laboratory. Developed an application simulating bacterial cultivation using Neo4j, 
+                                Django framework, and BioCyc, Reactome, and SMPDB databases.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-card">
+                            <div class="timeline-header">
+                                <div>
+                                    <div class="timeline-title">Programmer</div>
+                                    <div class="timeline-company">Biotrial, Rennes</div>
+                                </div>
+                                <div class="timeline-date">2021-2022</div>
+                            </div>
+                            <p class="timeline-description">
+                                Intern in the Biotrial biometrics pole. Performed data visualization on Business Object with clinical 
+                                data from Medidata. Developed monitoring tools for study data and implemented data consistency checks with SAS.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-card">
+                            <div class="timeline-header">
+                                <div>
+                                    <div class="timeline-title">Programmer</div>
+                                    <div class="timeline-company">DDEC-29, Quimper</div>
+                                </div>
+                                <div class="timeline-date">Jan-Feb 2021</div>
+                            </div>
+                            <p class="timeline-description">
+                                Adapted the Pedagogical Animation Plan to Laravel web framework for DDEC of Finistère. 
+                                Created a registration platform for teacher training courses.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="education" style="background: var(--bg-secondary);">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">🎓 Education</h2>
+                    <p class="section-subtitle">Academic Background</p>
+                </div>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-card">
+                            <div class="timeline-header">
+                                <div>
+                                    <div class="timeline-title">Master's in Bioinformatics</div>
+                                    <div class="timeline-company">Rennes 1 University, Rennes</div>
+                                </div>
+                                <div class="timeline-date">2022-2024</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-card">
+                            <div class="timeline-header">
+                                <div>
+                                    <div class="timeline-title">License in Bioinformatics</div>
+                                    <div class="timeline-company">UBO, Brest</div>
+                                </div>
+                                <div class="timeline-date">2021-2022</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-card">
+                            <div class="timeline-header">
+                                <div>
+                                    <div class="timeline-title">License in Biology</div>
+                                    <div class="timeline-company">UBO, Brest</div>
+                                </div>
+                                <div class="timeline-date">2019-2021</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-card">
+                            <div class="timeline-header">
+                                <div>
+                                    <div class="timeline-title">BTS in Biotechnology</div>
+                                    <div class="timeline-company">La Pérouse-Kerichen High School, Brest</div>
+                                </div>
+                                <div class="timeline-date">2017-2019</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">🛠️ Skills</h2>
+                    <p class="section-subtitle">Technical Expertise</p>
+                </div>
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <div class="skill-icon">💻</div>
+                        <h3 class="skill-title">Web & Software Development</h3>
+                        <div class="skill-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">Django</span>
+                            <span class="tag">Laravel</span>
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">Neo4j</span>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-icon">📊</div>
+                        <h3 class="skill-title">Data Science & Statistics</h3>
+                        <div class="skill-tags">
+                            <span class="tag">SAS</span>
+                            <span class="tag">R</span>
+                            <span class="tag">Business Object</span>
+                            <span class="tag">Data Visualization</span>
+                            <span class="tag">Clinical Data</span>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-icon">🧬</div>
+                        <h3 class="skill-title">Bioinformatics</h3>
+                        <div class="skill-tags">
+                            <span class="tag">Nextflow</span>
+                            <span class="tag">AlphaFold</span>
+                            <span class="tag">Reactome</span>
+                            <span class="tag">BioCyc</span>
+                            <span class="tag">Mol*</span>
+                            <span class="tag">Pathway Analysis</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="interests" style="background: var(--bg-secondary);">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">🌱 Interests</h2>
+                    <p class="section-subtitle">Beyond Work</p>
+                </div>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-icon">⚽</div>
+                        <div>
+                            <strong>Sports</strong>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem;">Football (R3), running, surfing, climbing, swimming, judo competitions</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">🍜</div>
+                        <div>
+                            <strong>World Cuisine</strong>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem;">Exploring flavors from around the globe</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">🌍</div>
+                        <div>
+                            <strong>Eco-citizenship</strong>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem;">Sustainable living and environmental awareness</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">🎵</div>
+                        <div>
+                            <strong>Music & Art</strong>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem;">Underground rap, art galleries, self-taught guitarist</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 3rem;">
+                    <h3 style="text-align: center; margin-bottom: 2rem; font-size: 1.8rem;">🎉 Fun Facts</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-icon">🍌</div>
+                            <div>
+                                <p style="color: var(--text-secondary);">Ran a marathon dressed as a banana</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">🎸</div>
+                            <div>
+                                <p style="color: var(--text-secondary);">Self-taught guitarist with a passion for music</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">🎶</div>
+                            <div>
+                                <p style="color: var(--text-secondary);">Collection of over 100 rare vinyl records</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">📞 Contact</h2>
+                    <p class="section-subtitle">Let's Connect</p>
+                </div>
+                <div class="contact-grid">
+                    <div class="contact-item">
+                        <div class="contact-icon">📱</div>
+                        <div class="contact-label">Phone</div>
+                        <div class="contact-value">
+                            <a href="tel:+33666383024">06 66 38 30 24</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">✉️</div>
+                        <div class="contact-label">Email</div>
+                        <div class="contact-value">
+                            <a href="mailto:sinquin.pierre1@gmail.com">sinquin.pierre1@gmail.com</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-label">Location</div>
+                        <div class="contact-value">Locunduff, 29390 Scaër, France</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Pierre Sinquin. All rights reserved.</p>
+            <p style="margin-top: 0.5rem; font-size: 0.9rem;">Built with passion for bioinformatics and sustainable development</p>
         </div>
-    </div>
-</header>
-<main class="container mx-auto p-4 rounded-lg shadow-lg grid grid-cols-1 gap-4">
-    <!-- Include different sections here -->
-    <?php include 'profile.html'; ?>
-    <?php include 'experience.html'; ?>
-    <?php include 'studies.html'; ?>
-    <?php include 'skills.html'; ?>
-    <?php include 'interests.html'; ?>
-    <?php include 'fun-facts.html'; ?>
-    <?php include 'bioinformatics.html'; ?>
-</main>
-<footer class="bg-gray-800 text-white py-6">
-    <div class="container mx-auto text-center">
-        <p>Contact 📞</p>
-        <p>Phone: 06 66 38 30 24</p>
-        <p>Email: sinquin.pierre1@gmail.com</p>
-        <p>Address: Locunduff, 29390 Scaër, France</p>
-    </div>
-</footer>
-<script src="scripts.js"></script>
+    </footer>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            const icon = document.getElementById('theme-icon');
+            
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            icon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        }
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        document.getElementById('theme-icon').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
